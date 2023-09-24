@@ -1,0 +1,26 @@
+#This program will find the prime factorisation of any integer below 19947
+n = 
+factors_1 = []
+for i in range(1 , n+1):
+    if n % i == 0:
+        factors_1.append(i)
+
+k = 
+primes = []
+for j in range(1 , k+1):
+    factors_2 = []
+    for i in range(1, j+1):
+        if j % i == 0:
+            factors_2.append(i)
+    if len(factors_2) == 2:
+        primes.append(j)
+#print(primes)
+
+prime_factors = []
+for l in factors_1:
+    for m in primes:
+       if l == m:
+           prime_factors.append(l)
+print(prime_factors)
+
+

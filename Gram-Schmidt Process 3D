@@ -1,0 +1,37 @@
+import numpy as np 
+import math
+
+#Uses Gram-Schmidt procedure to find an orthonormal basis for 3D vector space given 3 linearly independent vectors.
+
+vec_1 = np.array([a,b,c])
+vec_2 = np.array([d,e,f])
+vec_3 = np.array([g,h,i])
+
+
+def norm(vec):
+    sum=0
+    for i in vec:
+        j = i**2
+        sum += j
+    return(math.sqrt(sum))
+    
+def dotproduct(a,b):
+    total=0
+    for i in range(0, 3):
+        for j in range(0, 3):
+            if i == j:
+                total += a[i] * b[j]
+    return total
+
+orthonormal_vec_1 = vec_1 / norm(vec_1)
+orthogonal_vec_2 = (vec_2 - ((dotproduct(vec_2,vec_1) / dotproduct(vec_1, vec_1)) * vec_1))
+orthogonal_vec_3 = vec_3 - ((dotproduct(vec_3, vec_1) / dotproduct(vec_1, vec_1)) * vec_1 ) - ((dotproduct(vec_3, orthogonal_vec_2) / dotproduct(orthogonal_vec_2, orthogonal_vec_2)) * orthogonal_vec_2 )
+orthonormal_vec_2 = orthogonal_vec_2 / norm(orthogonal_vec_2)
+orthonormal_vec_3 = orthogonal_vec_3 / norm(orthogonal_vec_3)
+
+print(orthonormal_vec_1)
+print(orthonormal_vec_2)
+print(orthonormal_vec_3)
+
+
+

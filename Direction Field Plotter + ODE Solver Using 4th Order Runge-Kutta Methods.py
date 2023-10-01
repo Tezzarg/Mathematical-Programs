@@ -11,8 +11,7 @@ from sympy.solvers import solve
 y, x = symbols("y x")
 
 # Enter the first order differential equation here.
-derivative = ((y**2 + x**5)*y**2)/((x-3)*(y*(3/2)))
-
+derivative = y 
 # Enter the initial conditions here.
 x_0 = 0
 y_0 = 1
@@ -21,9 +20,11 @@ y_0 = 1
 h = 0.01
 
 # Enter the lower and upper limits to specify the domain over which the differential equation is being solved. 
-lower = 1
-upper = 2
+lower = -6
+upper = -5
 
+# Enter 1 for arrows on the tangent field plotter, 0 for no arrows.
+arrows = 1
 
 #critical_values = solve(denominator)
 #crit_values = []
@@ -65,8 +66,8 @@ plt.title("Solution to ODE")
 plt.grid()
 fig_1 = plt.figure("Figure 1")
 
-x_1 = np.arange(-5,5.15,0.15)
-y_1 = np.arange(-5,5.15,0.15)
+x_1 = np.arange(-5,5.2,0.2)
+y_1 = np.arange(-5,5.2,0.2)
 X, Y = np.meshgrid(x_1, y_1)
 ones = np.ones((int((np.size(X)))))
 derivatives = []
@@ -78,8 +79,8 @@ derivatives = []
 for i in x_1:
     for j in y_1:
         scalar = derivative.subs([(x, i) , (y, j)])
-        if scalar > 50:
-            derivatives.append(50)
+        if scalar > 75:
+            derivatives.append(75)
         else:
             derivatives.append(scalar)
 
@@ -92,13 +93,17 @@ normalised_derivatives = derivatives_2/np.sqrt(ones**2 + derivatives_2**2)
 #print(len(derivatives))
 derivatives_np = np.array(normalised_derivatives, dtype="float")
 
-#plt.plot(X, Y, marker = ".", color = "k", linestyle = "none")
 plt.xticks(x_1)
 plt.yticks(y_1)
 plt.xlabel(x)
 plt.ylabel(y)
 plt.title("Direction Field For ODE")
-plt.quiver(Y, X, normalised_ones, derivatives_np, color='purple', headaxislength=2, headlength=0, pivot='middle', scale=10, linewidth=0.2, units='xy', width=0.01, headwidth=1)
+
+if arrows == 0:
+    plt.quiver(Y, X, normalised_ones, derivatives_np, color='purple', headaxislength=2, headlength=0, pivot='middle', scale=10, linewidth=0.2, units='xy', width=0.025, headwidth=1)
+else:
+    plt.quiver(Y, X, normalised_ones, derivatives_np, color='purple', headwidth = 0.5, headlength =0.35, width = 0.0017, headaxislength=4)
+    
 plt.show()
 
 
